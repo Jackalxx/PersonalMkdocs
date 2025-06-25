@@ -1,0 +1,43 @@
+name: Deploy MkDocs to Publish branch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --no-cache-dir -r pippkg.txt
+
+      - name: Build MkDocs site
+        run: mkdocs build
+
+      - name: Push site/ to Publish branch
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+
+          # 建立暫存資料夾並複製 site/ 內容
+          mkdir temp_publish
+          cp -r site/* temp_publish/
+
+          # 初始化 Git 並推送到 Publish 分支
+          cd temp_publish
+          git init
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git checkout -b Publish
+          git add .
+          git commit -m "Deploy MkDocs site to Publish branch"
+          git push --force origin Publish

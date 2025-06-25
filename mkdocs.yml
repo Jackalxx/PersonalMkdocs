@@ -1,0 +1,32 @@
+site_name: CPS MKdocs
+site_url: http://localhost/doc/ 
+#必須指定與nginx部屬相同路徑的site_url, 才可以正確傳出css
+
+plugins:
+  - search
+  - include_dir_to_nav:
+      include_empty_dir: true
+
+nav:
+  - Home: index.md
+  - Document: Document/Publish
+
+theme: 
+  palette:
+    scheme: slate
+  name:  material #mkdocs #readthedocs
+  user_color_mode_toggle: true
+  #locale: zh_TW
+  #navigation_dept: 99
+  color_mode: dark
+  titles_only: true
+  
+extra_css:
+   - css/customize.css
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

@@ -16,6 +16,7 @@
 1. 確認你有設定好github page資訊  
     - 前往你的 GitHub 專案頁面  
     - 點選「Settings」→「Pages」  
-    - 在「Source」中選擇 gh-pages 分支，並選擇網頁的根目錄（/site）  
+    - 建立Publish 分支, 並在「Source」中選擇 Publish，選擇網頁的根目錄（/(root)）  
 2. 設定action允許workflow寫入
-3. 做些小修改後 commit master 
+3. 將deploy.yml放置到 .github/workflows資料夾中 (如果原本沒有)
+4. 做些小修改後 commit master 
